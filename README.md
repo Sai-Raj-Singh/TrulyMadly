@@ -90,7 +90,8 @@ Send a POST request to `/query` with a JSON body:
 ![](screenshots/s2.png)
 ![](screenshots/s3.png)
 ![](screenshots/s4.png)
-
+---
+## Usage tracking per request
 ![Usage tracking per request](screenshots/s5.png)
 
 ## APIs Used
