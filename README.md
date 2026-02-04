@@ -91,6 +91,8 @@ Send a POST request to `/query` with a JSON body:
 ![](screenshots/s3.png)
 ![](screenshots/s4.png)
 
+![Usage tracking per request](screenshots/s5.png)
+
 ## APIs Used
 - **Google Gemini**: Natural language understanding and reasoning.
 - **OpenWeatherMap**: Current and forecast weather data.

@@ -40,6 +40,15 @@ if st.button("Get Recommendation"):
                     else:
                         st.info(recommendation)
 
+                # Usage Stats
+                usage = data.get("usage_stats", {})
+                if usage:
+                    with st.sidebar:
+                        st.header("Token Usage")
+                        st.metric("Total Tokens", usage.get("total_tokens", 0))
+                        st.metric("Prompt Tokens", usage.get("prompt_tokens", 0))
+                        st.metric("Response Tokens", usage.get("candidates_tokens", 0))
+
                 with st.expander("Show Full Response Debug Info"):
                     st.json(data)
 

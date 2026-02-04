@@ -26,10 +26,14 @@ def create_plan(user_query: str):
     
     Output strictly in the following JSON format:
     """
-    response_text = None
+    response_data = None
     try:
-        response_text = generate_structured_json(prompt, SCHEMA)
+        response_data = generate_structured_json(prompt, SCHEMA)
+        response_text = response_data["text"]
+        usage = response_data["usage"]
+        
         cleaned_text = response_text.replace("```json", "").replace("```", "").strip()
-        return json.loads(cleaned_text)
+        plan = json.loads(cleaned_text)
+        return {"plan": plan, "usage": usage}
     except Exception as e:
-        return {"error": f"Failed to parse plan: {str(e)}", "raw_response": response_text}
+        return {"error": f"Failed to parse plan: {str(e)}", "raw_response": response_data}

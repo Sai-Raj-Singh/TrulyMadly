@@ -15,7 +15,7 @@ client = genai.Client(api_key=API_KEY)
 
 MODEL_NAME = "gemini-2.5-flash" 
 
-def generate_text(prompt: str) -> str:
+def generate_text(prompt: str) -> dict:
     """
     Generates text using Google Gemini.
     """
@@ -23,14 +23,20 @@ def generate_text(prompt: str) -> str:
         model=MODEL_NAME,
         contents=prompt
     )
+    usage = {}
     if response.usage_metadata:
-        print(f"Token Usage (Text): {response.usage_metadata}")
-    return response.text
+        usage = {
+            "prompt_token_count": response.usage_metadata.prompt_token_count,
+            "candidates_token_count": response.usage_metadata.candidates_token_count,
+            "total_token_count": response.usage_metadata.total_token_count
+        }
+    return {"text": response.text, "usage": usage}
 
-def generate_structured_json(prompt: str, response_schema: str = None) -> str:
+def generate_structured_json(prompt: str, response_schema: str = None) -> dict:
     """
     Generates a response in JSON format.
     Adds instruction to output strictly valid JSON.
+    Returns a dict with 'text' and 'usage'.
     """
     
     config = types.GenerateContentConfig(
@@ -46,6 +52,11 @@ def generate_structured_json(prompt: str, response_schema: str = None) -> str:
         contents=full_prompt,
         config=config
     )
+    usage = {}
     if response.usage_metadata:
-        print(f"Token Usage (JSON): {response.usage_metadata}")
-    return response.text
+        usage = {
+            "prompt_token_count": response.usage_metadata.prompt_token_count,
+            "candidates_token_count": response.usage_metadata.candidates_token_count,
+            "total_token_count": response.usage_metadata.total_token_count
+        }
+    return {"text": response.text, "usage": usage}

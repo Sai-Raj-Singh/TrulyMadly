@@ -52,5 +52,8 @@ def verify_and_recommend(execution_result: dict):
        - If data is missing, perform a best-effort check but prioritize safety.
     """
 
-    response = generate_text(prompt)
-    return response
+    response_data = generate_text(prompt)
+    return {
+        "report": response_data["text"],
+        "usage": response_data["usage"]
+    }
